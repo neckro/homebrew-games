@@ -5,7 +5,7 @@ class StoneSoup < Formula
   url 'http://sourceforge.net/projects/crawl-ref/files/Stone%20Soup/0.11.0/stone_soup-0.11.0.tar.xz'
   sha1 '5a4674b0ee032040d49c5f23a2f215b957b06440'
 
-  depends_on 'xz'
+  depends_on 'xz' => :build
 
   def caveats; <<-EOS.undent
     If you upgraded from 0.7.2, your saved games are not compatible with 0.11.
