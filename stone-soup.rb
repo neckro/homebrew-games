@@ -2,8 +2,10 @@ require 'formula'
 
 class StoneSoup < Formula
   homepage 'http://crawl.develz.org/'
-  url 'git://gitorious.org/crawl/crawl.git', :tag => '0.11.0'
-  version '0.11.0'
+  url 'http://sourceforge.net/projects/crawl-ref/files/Stone%20Soup/0.11.0/stone_soup-0.11.0.tar.xz'
+  sha1 '5a4674b0ee032040d49c5f23a2f215b957b06440'
+
+  depends_on 'xz'
 
   def caveats; <<-EOS.undent
     If you upgraded from 0.7.2, your saved games are not compatible with 0.11.
@@ -17,16 +19,7 @@ class StoneSoup < Formula
   end
 
   def install
-    cd "crawl-ref/source" do
-      # Crawl's build system checks the version number from the git repo, but
-      # Homebrew only checks out the index so this fails
-      # So, insert the version number manually instead of letting it check git
-      inreplace "Makefile" do |s|
-        s.sub!(/^\s+(SRC_VERSION *:= ).*$/, '\1'+version)
-      end
-      inreplace "util/gen_ver.pl" do |s|
-        s.sub!(/(\$_ = ).*$/, '\1"'+version+'"; 1 ')
-      end
+    cd "source" do
       system "make", "prefix=#{prefix}", "DATADIR=data/", "install"
     end
   end
